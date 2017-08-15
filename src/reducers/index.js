@@ -3,8 +3,8 @@ import { routerReducer } from 'react-router-redux';
 
 import items from './items';
 import basket from './basket';
-import user from './user';
+import currentUser from './currentUser';
 
-const rootReducer = combineReducers({items, basket, user, routing: routerReducer});
+const rootReducer = combineReducers({items, basket, currentUser, routing: routerReducer});
 
 export default rootReducer;

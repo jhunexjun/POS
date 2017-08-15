@@ -5,27 +5,27 @@ import { Provider } from 'react-redux';
 import store, { history } from './store';
 import registerServiceWorker from './registerServiceWorker';
 
-// import App from './components/App';
-import Main from './components/Main';
+import App from './components/App';
+import MainIndex from './components/MainIndex';
 import Home from './components/Home';
 import About from './components/About';
 import Login from './components/Login';
 
 import Profile from './components/Admin/Profile';
-import AppAdmin from './components/Admin/AppAdmin';
 import AdminHomeComponent from './components/Admin/AdminHomeComponent';
 
 
 const routers = (
 	<Provider store={store}>
 		<Router history={history}>
-		    <Route path="/" component={Main}>
+		    <Route path="/" component={App}>
+		    	<IndexRoute component={MainIndex}></IndexRoute>
 		    	<Route path="/home" component={Home} />
 		    	<Route path="/about" component={About} />
 		    	<Route path="/login" component={Login} />
-		    </Route>
-		    <Route path="/admin" component={AppAdmin}>
-		    	<IndexRoute component={AdminHomeComponent}></IndexRoute>
+
+		    	{/*admin pages*/}
+		    	<Route path="/admin" component={AdminHomeComponent} />
 		    	<Route path="/admin/profile" component={Profile} />
 		    </Route>
 		</Router>

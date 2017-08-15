@@ -20,6 +20,12 @@ class AdminHomeComponent extends Component {
 		this.handleCancel = this.handleCancel.bind(this);
 	}
 
+	componentWillMount() {
+		if (!this.props.currentUser.hasOwnProperty('id')) {
+			this.props.router.push('/');
+		}
+	}
+
 	handleBarcodeInput(e) {
 		this.setState({barcode: e.target.value, showLogoutAlert: false});
 	}

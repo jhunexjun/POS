@@ -7,7 +7,7 @@ function mapsStateToProps(state) {
 	return {
 		items: state.items,
 		basket: state.basket,
-		user: state.user
+		currentUser: state.currentUser
 	}
 }
 

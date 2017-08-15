@@ -10,7 +10,7 @@ import items from './data/items';
 const defaultState = {
 	items,
 	basket: [],
-	user: {id: '01111'}
+	currentUser: {}
 };
 
 const store = createStore(rootReducer, defaultState);

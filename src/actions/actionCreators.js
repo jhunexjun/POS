@@ -24,4 +24,11 @@ export function removeAllItems() {
 	}
 }
 
+export function attachUser(userObj) {
+	return {
+		type: 'ATTACH_USER',
+		userObj
+	}
+}
+
 // tender
