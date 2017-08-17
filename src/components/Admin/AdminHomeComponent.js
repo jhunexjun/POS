@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/custom.css';
 import RowItem from './RowItem';
 import items from '../../data/items';
-import Alert from './Alert';
+import Alert from '../Alert';
 import ModalCancel from './ModalCancel';
 import ModalTender from './ModalTender';
 let isEmpty = require('lodash.isempty');

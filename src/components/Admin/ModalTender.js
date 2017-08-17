@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import validator from 'validator';
+import Alert from '../Alert';
 let isEmpty = require('lodash.isempty');
 
 class ModalTender extends Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			showError: false,
+			errorMessage: ''
+		}
 
 		this.handleYes = this.handleYes.bind(this);
 	}
@@ -18,8 +25,19 @@ class ModalTender extends Component {
 	}
 
 	handleYes() {
-		this.props.onConfirmation();		
-		this.refs.btnTenderNo.click();
+		const tenderAmt = this.refs.btnTenderAmt.value.trim();
+
+		if (validator.isCurrency(tenderAmt, {require_symbol: false})) {
+			if (parseFloat(tenderAmt) > parseFloat(this.props.grandTotal)) {
+				this.setState({showError: false});
+				this.props.onConfirmation();
+				this.refs.btnTenderNo.click();
+			} else {
+				this.setState({showError: true, errorMessage: 'Tender amount is less than grand total.'});
+			}
+		} else {
+			this.setState({showError: true, errorMessage: 'Input value is not a number.'});
+		}
 	}
 
 	render() {
@@ -35,6 +53,9 @@ class ModalTender extends Component {
 				      	</div>
 				      	<div className="modal-body">
 				      		<div className="container-fluid">
+				      			<div className="row">
+				      				<div className="col-md-12">{this.state.showError ? <Alert text={this.state.errorMessage} /> : null}</div>
+				      			</div>
 				      			<div className="row">
 				      				<div className="col-md-4"></div>
 				      				<div className="col-md-2">Total</div>
