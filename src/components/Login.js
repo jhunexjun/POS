@@ -22,16 +22,17 @@ class Login extends Component {
 		// this assumes the http request.
 		const inputUsername = this.refs.username.value.trim();
 		const inputPw = this.refs.password.value.trim();
-		let foundUser = false;
+		let foundUser = false, fName = '', lName = '';
 
 		users.forEach((user) => {
 			if (user.username === inputUsername && bcrypt.compareSync(inputPw, user.password)) {
+				fName = user.fName; lName = user.lName;
 				foundUser = true;
 			}
 		});
 
 		if (foundUser) {
-			this.props.requestLogin({username: inputUsername});
+			this.props.requestLogin({username: inputUsername, fName, lName});
 			this.props.router.push('/admin');
 		} else {
 			this.setState({errorLogIn: true, errorMessage: 'Invalid username/password.'});

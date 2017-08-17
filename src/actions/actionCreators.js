@@ -33,13 +33,6 @@ export function requestLogin(userObj) {
 	}
 }
 
-export function receivedLogin(userObj) {
-	return {
-		type: 'RECEIVED_LOGIN',
-		idToken: userObj.token
-	}
-}
-
 // removing the user
 export function requestLogout(userObj) {
 	return {

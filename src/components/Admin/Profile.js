@@ -11,7 +11,7 @@ class Profile extends Component {
 		return (
 			<div className="container">
 				<div className="row">
-					<h2>Profile page is under construction.</h2>
+					<h2>Welcome {this.props.currentUser[0].fName + ' ' +this.props.currentUser[0].lName}</h2>
 				</div>
 			</div>
 		)

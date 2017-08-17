@@ -28,7 +28,7 @@ class ModalTender extends Component {
 		const tenderAmt = this.refs.btnTenderAmt.value.trim();
 
 		if (validator.isCurrency(tenderAmt, {require_symbol: false})) {
-			if (parseFloat(tenderAmt) > parseFloat(this.props.grandTotal)) {
+			if (parseFloat(tenderAmt) >= parseFloat(this.props.grandTotal)) {
 				this.setState({showError: false});
 				this.props.onConfirmation();
 				this.refs.btnTenderNo.click();
@@ -42,7 +42,7 @@ class ModalTender extends Component {
 
 	render() {
 		return (
-			<div className="modal fade" id="modalTender" tabIndex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div className="modal fade" id="modalTender" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  	<div className="modal-dialog" role="document">
 				    <div className="modal-content">
 				      	<div className="modal-header">
