@@ -1,3 +1,8 @@
+/*import request from 'request';
+import fakeweb from 'node-fakeweb';*/
+/*const request = require('request');
+const fakeweb = require('node-fakeweb');*/
+
 // add item to the basket
 export function addItem(itemObj, qty) {
 	return {
@@ -24,10 +29,33 @@ export function removeAllItems() {
 	}
 }
 
-export function attachUser(userObj) {
+// attach the user
+
+export function requestLogin(userObj) {
+	/*fakeweb.allowNetConnect = true;
+	fakeweb.registerUri({uri: 'http://www.testing.com:80/', body: 'Hello!'});
+	request.post({uri: 'http://www.testing.com:80/'}, (err, resp, body) => {
+	console.log(body);
+	});*/
+	
+
 	return {
-		type: 'ATTACH_USER',
+		type: 'REQUEST_LOGIN',
 		userObj
+	}
+}
+
+export function receivedLogin(userObj) {
+	return {
+		type: 'RECEIVED_LOGIN',
+		idToken: userObj.token
+	}
+}
+
+// removing the user
+export function requestLogout(userObj) {
+	return {
+		type: 'REQUEST_LOGOUT'
 	}
 }
 

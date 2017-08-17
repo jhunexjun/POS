@@ -3,27 +3,36 @@ import '../../styles/custom.css';
 import RowItem from './RowItem';
 import items from '../../data/items';
 import Alert from './Alert';
-import CancelModal from './CancelModal';
+import ModalCancel from './ModalCancel';
+import ModalTender from './ModalTender';
+let isEmpty = require('lodash.isempty');
 
 class AdminHomeComponent extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			barcode: '', qty: 1,
+			barcode: '',
+			qty: 1,
 			showLogoutAlert: false,
-			cancelAllItem: false
+			itemCount: 0
 		};
 
 		this.handleBarcodeInput = this.handleBarcodeInput.bind(this);
 		this.handleQtyInput = this.handleQtyInput.bind(this);
 		this.handleEnter = this.handleEnter.bind(this);
 		this.handleCancel = this.handleCancel.bind(this);
+		this.handleOnKeyDown = this.handleOnKeyDown.bind(this);
+		this.handleYesOfModalTender = this.handleYesOfModalTender.bind(this);
+		this.handleRemoveItem = this.handleRemoveItem.bind(this);
 	}
 
 	componentWillMount() {
-		if (!this.props.currentUser.hasOwnProperty('id')) {
+		if (isEmpty(this.props.currentUser))
 			this.props.router.push('/');
-		}
+	}
+
+	componentDidMount() {
+		this.setState({itemCount: this.props.basket.length});
 	}
 
 	handleBarcodeInput(e) {
@@ -50,7 +59,10 @@ class AdminHomeComponent extends Component {
 			};
 
 			this.props.addItem(itemObj, this.state.qty);
-			this.setState({barcode: '', qty: 1});
+			this.setState({barcode: '',
+							qty: 1,
+							itemCount: this.state.itemCount + 1
+			});
 		} else {
 			this.setState({showLogoutAlert: true});
 		}
@@ -60,7 +72,24 @@ class AdminHomeComponent extends Component {
 
 	handleCancel() {
 		this.props.removeAllItems();
+		this.setState({itemCount: 0})
 		this.refs.barcode.focus();
+	}
+
+	handleOnKeyDown(e) {
+		if (e.keyCode === 13)
+			this.handleEnter();
+	}
+
+	handleYesOfModalTender() {
+		this.props.removeAllItems();
+		this.setState({itemCount: 0})
+		this.refs.barcode.focus();
+	}
+
+	handleRemoveItem(i) {
+		this.props.removeItem(i);
+		this.setState({itemCount: this.state.itemCount - 1})
 	}
 
 	render() {
@@ -71,11 +100,11 @@ class AdminHomeComponent extends Component {
 			return sum + value;
 		}, 0.00);
 		grandTotal = grandTotal.toFixed(2);
-		// let grandTotal = 0.00;
 
 		return (
 			<div className="container">
-				<CancelModal onCancel={this.handleCancel} />
+				<ModalCancel onConfirmation={this.handleCancel} currentUser={this.props.currentUser} />
+				<ModalTender onConfirmation={this.handleYesOfModalTender} {...this.props} grandTotal={grandTotal} />
 				<div className="row voffset2">
 					<div className="col"></div>
 					<div className="col-4">
@@ -91,7 +120,7 @@ class AdminHomeComponent extends Component {
 						<input className='form-control' size='5' placeholder='Qty' value={this.state.qty} onChange={this.handleQtyInput} />
 					</div>
 					<div className="col col-md-5">
-						<input ref="barcode" value={this.state.barcode} onChange={this.handleBarcodeInput} className="form-control" placeholder="Enter barcode here." autoFocus />
+						<input ref="barcode" value={this.state.barcode} onChange={this.handleBarcodeInput} className="form-control" placeholder="Enter barcode here." onKeyDown={this.handleOnKeyDown} autoFocus />
 					</div>
 					<div className="col col-md-2"><button onClick={this.handleEnter} type="button" className="btn btn-outline-primary">Enter</button></div>
 				</div>
@@ -111,7 +140,7 @@ class AdminHomeComponent extends Component {
 								</tr>
 							</thead>
 							<tbody>
-								{this.props.basket.map((item, i) => <RowItem {...this.props} key={i} i={i} item={item} />)}
+								{this.props.basket.map((item, i) => <RowItem onHandleRemoveItem={this.handleRemoveItem} {...this.props} key={i} i={i} item={item} />)}
 							</tbody>
 						</table>
 					</div>
@@ -123,8 +152,8 @@ class AdminHomeComponent extends Component {
 				<div className="row voffset4">
 					<div className="col"></div>
 					<div className="col">
-						<button type="button" className="btn btn-outline-primary">Tender</button>
-						<button className="btn btn-outline-danger" data-toggle="modal" data-target="#cancelModal">Cancel</button>
+						<button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target={this.state.itemCount ? "#modalTender" : ""} disabled={!this.state.itemCount}>Tender</button>
+						<button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target={this.state.itemCount ? "#modalCancel" : ""} disabled={!this.state.itemCount}>Cancel</button>
 					</div>
 					<div className="col"></div>
 				</div>

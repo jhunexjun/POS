@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 class LogoutModal extends Component {
 	handleYes() {
+		this.props.removeAllItems();
+		this.props.requestLogout();
 		this.refs.btnNo.click();
 		this.props.router.push('/');
 	}

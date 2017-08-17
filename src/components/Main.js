@@ -8,7 +8,7 @@ class Main extends Component {
 		let menuComponent = null;
 		let logOutComponent = null;
 
-		if (this.props.currentUser.hasOwnProperty('id')) {
+		if (this.props.currentUser.length > 0) {
 			logOutComponent = <LogoutModal {...this.props} />;
 			menuComponent = <AdminNavBar />;
 		} else {

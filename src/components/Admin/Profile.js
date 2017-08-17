@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+let isEmpty = require('lodash.isempty');
 
 class Profile extends Component {
+	componentWillMount() {
+		if (isEmpty(this.props.currentUser))
+			this.props.router.push('/');
+	}
+
 	render() {
 		return (
 			<div className="container">

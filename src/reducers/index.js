@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import items from './items';
 import basket from './basket';
+import isAuthenticated from './isAuthenticated';
 import currentUser from './currentUser';
 
-const rootReducer = combineReducers({items, basket, currentUser, routing: routerReducer});
+const reducers = {basket, isAuthenticated, currentUser, routing: routerReducer};
+
+const rootReducer = combineReducers(reducers);
 
 export default rootReducer;

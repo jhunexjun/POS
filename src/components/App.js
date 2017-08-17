@@ -5,8 +5,8 @@ import Main from './Main';
 
 function mapsStateToProps(state) {
 	return {
-		items: state.items,
 		basket: state.basket,
+		isAuthenticated: state.isAuthenticated,
 		currentUser: state.currentUser
 	}
 }

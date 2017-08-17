@@ -1,12 +1,11 @@
-function currentUser(state = [], action) {
+function currentUser(state = {}, action) {
 	switch (action.type) {
-		case 'ATTACH_USER' :
+		case 'REQUEST_LOGIN' :
 			return [...state, {
-				id: action.userObj.id,
-				userName: action.userObj.userName,
+				username: action.userObj.username
 			}];
-		case 'REMOVE_ITEM_FROM_BASKET':
-			return state;
+		case 'REQUEST_LOGOUT' :
+			return [];
 		default:
 			return state;
 	}

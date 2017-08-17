@@ -8,6 +8,7 @@ class Login extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
+		this.props.requestLogin({username: this.refs.username.value});
 		this.props.router.push('/admin');
 	}
 
@@ -20,7 +21,7 @@ class Login extends Component {
 						<form action="admin" method="POST">
 						  <div className="form-group">
 						    <label htmlFor="exampleInputEmail1">Email address</label>
-						    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+						    <input ref="username" type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
 						    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
 						  </div>
 						  <div className="form-group">

@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+let isEmpty = require('lodash.isempty');
 
 class RowItem extends Component {
+	componentWillMount() {
+		if (isEmpty(this.props.currentUser))
+			this.props.router.push('/');
+	}
+
 	render() {
 		let { barcode, itemName, price, qty } = {...this.props.item};
 
@@ -12,7 +18,7 @@ class RowItem extends Component {
 				<td>{price}</td>
 				<td>{qty}</td>
 				<td>{(price * qty).toFixed(2)}</td>
-				<td><button onClick={this.props.removeItem.bind(null, this.props.i)} type="button" className="btn btn-danger btn-sm">X</button></td>
+				<td><button onClick={this.props.onHandleRemoveItem.bind(null, this.props.i)} type="button" className="btn btn-danger btn-sm">X</button></td>
 			</tr>
 		)
 	}
