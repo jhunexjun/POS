@@ -1,3 +1,11 @@
+### To log-in use one of the following credentials. These can be found in data/users.js file.
+- jason.santos@yahoo.com/12345678
+- cristine.rodriguez@gmail.com/password
+
+### For the items. These can be found in data/items.js file.
+- 12345678, 02345679, 56567888
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
@@ -2152,4 +2160,3 @@ To resolve this:
 ## Something Missing?
 
 If you have ideas for more “How To” recipes that should be on this page, [let us know](https://github.com/facebookincubator/create-react-app/issues) or [contribute some!](https://github.com/facebookincubator/create-react-app/edit/master/packages/react-scripts/template/README.md)
-# POS
